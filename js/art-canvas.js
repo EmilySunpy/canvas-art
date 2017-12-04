@@ -60,8 +60,13 @@ function generateArtCanvas(canvas){
     
     var ctx = canvas.getContext("2d");
 
-    var color = new Color(100, 100, 100);
-    DrawCube3D(ctx, 40, 40, 20, 20, 0.4, colors[Math.floor(Math.random() * colors.length)]);
+    for(var i = 0; i < 100; i++){
+        var x = Math.random() * canvas.width;
+        var y = Math.random() * canvas.height;
+        var scale = Math.random() * 100 + 20;
+
+        DrawCube3D(ctx, x, y, scale, scale, 0.4, colors[Math.floor(Math.random() * colors.length)]);
+    }
 }
 
 function DrawCube3D(ctx, x, y, width, height, lineThicknessScale, color){
@@ -78,13 +83,13 @@ function DrawCube3D(ctx, x, y, width, height, lineThicknessScale, color){
 
     ctx.rotate((Math.PI / 180) * 120);
     DrawDiamond(ctx, width, height * 0.58);
-    color.Scale(0.6);
+    color = color.Scale(0.6);
     ctx.fillStyle = color.toHex();
     ctx.fill();
 
     ctx.rotate((Math.PI / 180) * 120);
     DrawDiamond(ctx, width, height * 0.58);
-    color.Scale(0.6);
+    color = color.Scale(0.6);
     ctx.fillStyle = color.toHex();
     ctx.fill();
 
@@ -123,9 +128,11 @@ class Color {
         this.g = g;
         this.b = b;
         this.Scale = function(f) {
-            this.r = Math.floor(Math.max(0, Math.min(255, this.r * f)));
-            this.g = Math.floor(Math.max(0, Math.min(255, this.g * f)));
-            this.b = Math.floor(Math.max(0, Math.min(255, this.b * f)));
+            return new Color(
+                Math.floor(Math.max(0, Math.min(255, this.r * f))),
+                Math.floor(Math.max(0, Math.min(255, this.g * f))),
+                Math.floor(Math.max(0, Math.min(255, this.b * f)))
+            );
         };
 
         this.toHex = function(){
