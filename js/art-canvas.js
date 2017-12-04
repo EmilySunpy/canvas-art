@@ -5,7 +5,11 @@ var defaultCanvasArtSettings = {
     amount: 100,
     minScale: 20,
     maxScale: 100,
-    lineThickness: 40
+    lineThickness: 40,
+    colors: [
+        "#ff0000",
+        "#777777"
+    ]
 };
 
 function initArtCanvas(){
@@ -75,19 +79,12 @@ function generateArtCanvas(canvas){
         return;
     }
 
-    var colors = [];
-    if(canvas.dataset.hasOwnProperty("colors")){
-        var dataColors = canvas.dataset["colors"].split(";");
-        for(var i = 0; i < dataColors.length; i++){
-            var color = hexToColor(dataColors[i]);
-            colors.push(color);
-        }
-    }else{
-        colors = [new Color(255, 0, 0)];
-    }
-    
-    //Get settings object
     var artSettings = canvasArtSettings[canvas.id];
+
+    var dataColors = canvasArtSettings[canvas.id]["colors"];
+    var colors = [];
+    for(var i = 0; i < dataColors.length; i++)  //Make into color objects
+        colors[i] = hexToColor(dataColors[i]);
 
     var ctx = canvas.getContext("2d");
 

@@ -37,31 +37,80 @@ Add art-canvas onto a canvas element to allow generateArtCanvasOnSpawn settings 
 Add art-canvas onto a button element along with data-bind with the same id as a canvas will
 link it to run the canvas generator once pressed.
 -->
-<body onload="initArtCanvas()">
+<body onload="initArtCanvas();initColorDiv();">
 <div style="text-align:center;background:#cfcfcf;">
-<canvas class="art-canvas" id="first-canvas" width=1920 height=1080 data-colors="#ff0000;#777777" style="margin-left:auto;margin-right:auto;width:50%;border:16px solid black;"></canvas>
+    <canvas class="art-canvas" id="first-canvas" width=1920 height=1080 style="margin-left:auto;margin-right:auto;width:50%;border:16px solid black;"></canvas>
 </div>
 
 <div class="settings">
-<div>
-<button class="art-canvas" data-bind="first-canvas" style="font-size:42px;">Generate</button>
-<div>
-Amount
-<input class="art-canvas" type="number" data-bind="first-canvas" data-bindtype="amount" value="100" min="1">
-</div>
-<div>
-Minumum scale
-<input class="art-canvas" type="number" data-bind="first-canvas" data-bindtype="minScale" value="20" min="1">
-</div>
-<div>
-Maximum scale
-<input class="art-canvas" type="number" data-bind="first-canvas" data-bindtype="maxScale" value="100" min="1">
-</div>
-<div>
-Line thickness
-<input class="art-canvas" type="number" data-bind="first-canvas" data-bindtype="lineThickness" value="40" min="1">
-</div>
-</div>
-</div>
+    <div>
+        <button class="art-canvas" data-bind="first-canvas" style="font-size:42px;">Generate</button>
+        <div>
+            Amount
+            <input class="art-canvas" type="number" data-bind="first-canvas" data-bindtype="amount" value="100" min="1">
+        </div>
+        <div>
+            Minumum scale
+            <input class="art-canvas" type="number" data-bind="first-canvas" data-bindtype="minScale" value="20" min="1">
+        </div>
+        <div>
+            Maximum scale
+            <input class="art-canvas" type="number" data-bind="first-canvas" data-bindtype="maxScale" value="100" min="1">
+        </div>
+        <div>
+            Line thickness
+            <input class="art-canvas" type="number" data-bind="first-canvas" data-bindtype="lineThickness" value="40" min="1">
+        </div>
+        <div>
+            Colors
+            <input type="number" value="2" min="1" onchange="updateColorDiv(this)">
+        </div>
+        <div id="colors">
 
+        </div>
+    </div>
+</div>
+<script>
+    //This is seperated due it only being used for settings modifier for this case
+    function updateColorDiv(input){
+        var value = Math.max(parseInt(input.min), parseInt(input.value));
+        var colorDiv = document.getElementById("colors");
+
+        while (colorDiv.childElementCount > 0)
+            colorDiv.removeChild(colorDiv.children[0]);
+
+        for(var i = 0; i < value; i++){
+            var colorPicker = document.createElement("input");
+            colorPicker.type = "color";
+            colorPicker.dataset["bind"] = "colors";
+            colorPicker.dataset["id"] = i;
+            colorPicker.value = canvasArtSettings["first-canvas"]["colors"][i];
+            colorPicker.onchange = function(){ ColorChange(this) };
+            canvasArtSettings["first-canvas"]["colors"][i] = colorPicker.value;
+            colorDiv.append(colorPicker);
+        }
+
+        while(value < canvasArtSettings["first-canvas"]["colors"].length)
+            canvasArtSettings["first-canvas"]["colors"].pop();
+    }
+
+    function initColorDiv(){
+        var value = canvasArtSettings["first-canvas"]["colors"].length;
+        var colorDiv = document.getElementById("colors");
+
+        for(var i = 0; i < value; i++){
+            var colorPicker = document.createElement("input");
+            colorPicker.type = "color";
+            colorPicker.dataset["bind"] = "colors";
+            colorPicker.dataset["id"] = i;
+            colorPicker.value = canvasArtSettings["first-canvas"]["colors"][i];
+            colorPicker.onchange = function(){ ColorChange(this) };
+            colorDiv.append(colorPicker);
+        }
+    }
+
+    function ColorChange(input){
+        canvasArtSettings["first-canvas"][input.dataset.bind][parseInt(input.dataset.id)] = input.value;
+    }
+</script>
 </body>
