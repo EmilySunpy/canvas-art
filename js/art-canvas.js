@@ -4,7 +4,8 @@ var canvasArtSettings = {};
 var defaultCanvasArtSettings = {
     amount: 100,
     minScale: 20,
-    maxScale: 100
+    maxScale: 100,
+    lineThickness: 40
 };
 
 function initArtCanvas(){
@@ -98,8 +99,9 @@ function generateArtCanvas(canvas){
         var y = Math.random() * canvas.height;
         var scale = Math.random() * (artSettings["maxScale"] - artSettings["minScale"]) + artSettings["minScale"];
         var rotation = (Math.PI / 180) * Math.random() * 360;
+        var lineThicknessScale = artSettings["lineThickness"] / 100;
 
-        DrawCube3D(ctx, x, y, scale, scale, rotation, 0.4, colors[Math.floor(Math.random() * colors.length)]);
+        DrawCube3D(ctx, x, y, scale, scale, rotation, lineThicknessScale, colors[Math.floor(Math.random() * colors.length)]);
     }
 }
 
