@@ -2,7 +2,9 @@ var cacheArtCanvas, cacheArtCanvasCtx;
 
 var canvasArtSettings = {};
 var defaultCanvasArtSettings = {
-
+    amount: 100,
+    minScale: 40,
+    maxScale: 100
 };
 
 function initArtCanvas(){
@@ -13,6 +15,9 @@ function initArtCanvas(){
     for(var i = 0; i < artCanvasList.length; i++){
         switch(artCanvasList[i].nodeName){
             case "CANVAS":
+                if(!canvasArtSettings.hasOwnProperty(artCanvasList[i].id))
+                    canvasArtSettings[artCanvasList[i].id] = Object.assign({}, defaultCanvasArtSettings);
+                
                 if (typeof settings !== 'undefined'){
                     if (settings.hasOwnProperty("generateArtCanvasOnSpawn"))
                         if (settings["generateArtCanvasOnSpawn"])
@@ -77,15 +82,18 @@ function generateArtCanvas(canvas){
         colors = [new Color(255, 0, 0)];
     }
     
+    //Get settings object
+    var artSettings = canvasArtSettings[canvas.id];
+
     var ctx = canvas.getContext("2d");
 
     //Clear old image
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    for(var i = 0; i < 100; i++){
+    for(var i = 0; i < artSettings["amount"]; i++){
         var x = Math.random() * canvas.width;
         var y = Math.random() * canvas.height;
-        var scale = Math.random() * 100 + 20;
+        var scale = Math.random() * (artSettings["maxScale"] - artSettings["minScale"]) + artSettings["minScale"];
         var rotation = (Math.PI / 180) * Math.random() * 360;
 
         DrawCube3D(ctx, x, y, scale, scale, rotation, 0.4, colors[Math.floor(Math.random() * colors.length)]);
