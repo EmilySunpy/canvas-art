@@ -108,21 +108,21 @@ function DrawCube3D(ctx, x, y, width, height, rotation, lineThicknessScale, colo
     ctx.rotate(rotation);
 
     ctx.lineWidth = width * lineThicknessScale;
-    DrawCube3DOutline(ctx, width, height * 0.58);
+    DrawCube3DOutline(ctx, width, height * 0.57);
     ctx.stroke();
 
-    DrawDiamond(ctx, width, height * 0.58);
+    DrawDiamond(ctx, width, height * 0.57);
     ctx.fillStyle = color.toHex();
     ctx.fill();
 
     ctx.rotate((Math.PI / 180) * 120);
-    DrawDiamond(ctx, width, height * 0.58);
+    DrawDiamond(ctx, width, height * 0.57);
     color = color.Scale(0.6);
     ctx.fillStyle = color.toHex();
     ctx.fill();
 
     ctx.rotate((Math.PI / 180) * 120);
-    DrawDiamond(ctx, width, height * 0.58);
+    DrawDiamond(ctx, width, height * 0.57);
     color = color.Scale(0.6);
     ctx.fillStyle = color.toHex();
     ctx.fill();
