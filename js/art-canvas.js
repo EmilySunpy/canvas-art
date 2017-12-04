@@ -3,7 +3,7 @@ var cacheArtCanvas, cacheArtCanvasCtx;
 var canvasArtSettings = {};
 var defaultCanvasArtSettings = {
     amount: 100,
-    minScale: 40,
+    minScale: 20,
     maxScale: 100
 };
 
