@@ -1,11 +1,21 @@
 <head>
     <title>Canvas art - Generator</title>
+    <script>
+    //Settings for this app
+    var settings = {
+        generateArtCanvasOnSpawn: true
+    };
+
+    </script>
     <script src="js/art-canvas.js"></script>
 </head>
 
 <!--
-I add art-gen as class onto the canvas element to make it get effected by the script
+Add art-canvas onto a canvas element to allow generateArtCanvasOnSpawn settings to apply.
+Add art-canvas onto a button element along with data-bind with the same id as a canvas will
+link it to run the canvas generator once pressed.
 -->
 <body onload="initArtCanvas()">
-<canvas class="art-gen"></canvas>
+<canvas class="art-canvas" id="first-canvas"></canvas>
+<button class="art-canvas" data-bind="first-canvas">Generate</button>
 </body>
