@@ -49,16 +49,33 @@ function generateArtCanvas(canvas){
     
     var ctx = canvas.getContext("2d");
 
-    ctx.translate(40, 40);
-    DrawDiamond(ctx, 20, 20);
+    DrawCube3D(ctx, 40, 40, 20, 20);
+}
+
+function DrawCube3D(ctx, x, y, width, height){
+    ctx.save();
+    ctx.translate(x, y);
+
+    DrawDiamond(ctx, width, height * 0.58);
+    ctx.stroke();
+    ctx.rotate((Math.PI / 180) * 120);
+    DrawDiamond(ctx, width, height * 0.58);
+    ctx.stroke();
+    ctx.rotate((Math.PI / 180) * 120);
+    DrawDiamond(ctx, width, height * 0.58);
+    ctx.stroke();
+
+    ctx.fillStyle = '#8ED6FF';
+    ctx.fill();
+
+    ctx.restore();
 }
 
 function DrawDiamond(ctx, width, height){
     ctx.beginPath();
     ctx.moveTo(0,0);
-    ctx.lineTo(width,height/2);
-    ctx.lineTo(0,height);
-    ctx.lineTo(-width,height/2);
+    ctx.lineTo(width,height);
+    ctx.lineTo(0,height*2);
+    ctx.lineTo(-width,height);
     ctx.closePath();
-    ctx.stroke();
 }
