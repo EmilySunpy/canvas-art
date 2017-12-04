@@ -1,5 +1,10 @@
 var cacheArtCanvas, cacheArtCanvasCtx;
 
+var canvasArtSettings = {};
+var defaultCanvasArtSettings = {
+
+};
+
 function initArtCanvas(){
     //initCacheCanvas();
 
@@ -20,8 +25,11 @@ function initArtCanvas(){
             case "BUTTON":
                 initArtButton(artCanvasList[i]);
                 break;
+            case "INPUT":
+                initArtInput(artCanvasList[i]);
+                break;
             default:
-                console.error(artCanvasList[i] + " is not a valid art-canvas element! \n[Valid types are canvas & button]");
+                console.error(artCanvasList[i] + " is not a valid art-canvas element! \n[Valid types are canvas, button & input]");
                 break;
         }
     }
@@ -38,6 +46,17 @@ function initCacheCanvas(){
 function initArtButton(button){
     button.addEventListener("click", function(){
         generateArtCanvas(document.getElementById(button.dataset.bind));
+    });
+}
+
+function initArtInput(input){
+    input.addEventListener("change", function(){
+        var value = Math.max(parseInt(input.min), parseInt(input.value));
+
+        if(!canvasArtSettings.hasOwnProperty(input.dataset.bind))
+            canvasArtSettings[input.dataset.bind] = Object.assign({}, defaultCanvasArtSettings);
+
+        canvasArtSettings[input.dataset.bind][input.dataset.bindtype] = value;
     });
 }
 

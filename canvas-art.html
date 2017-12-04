@@ -16,6 +16,8 @@ Add art-canvas onto a button element along with data-bind with the same id as a 
 link it to run the canvas generator once pressed.
 -->
 <body onload="initArtCanvas()">
-<canvas class="art-canvas" id="first-canvas" width=1920 height=1080 data-colors="#ff0000;#777777"></canvas>
+<input class="art-canvas" type="number" data-bind="first-canvas" data-bindtype="amount" value="100" min="1">
 <button class="art-canvas" data-bind="first-canvas">Generate</button>
+
+<canvas class="art-canvas" id="first-canvas" width=1920 height=1080 data-colors="#ff0000;#777777"></canvas>
 </body>
