@@ -49,24 +49,50 @@ function generateArtCanvas(canvas){
     
     var ctx = canvas.getContext("2d");
 
-    DrawCube3D(ctx, 40, 40, 20, 20);
+    var color = new Color(255, 0, 0);
+    DrawCube3D(ctx, 40, 40, 20, 20, 0.4, color);
 }
 
-function DrawCube3D(ctx, x, y, width, height){
+function DrawCube3D(ctx, x, y, width, height, lineThicknessScale, color){
     ctx.save();
     ctx.translate(x, y);
 
-    DrawDiamond(ctx, width, height * 0.58);
-    ctx.stroke();
-    ctx.rotate((Math.PI / 180) * 120);
-    DrawDiamond(ctx, width, height * 0.58);
-    ctx.stroke();
-    ctx.rotate((Math.PI / 180) * 120);
-    DrawDiamond(ctx, width, height * 0.58);
+    ctx.lineWidth = width * lineThicknessScale;
+    DrawCube3DOutline(ctx, width, height * 0.58);
     ctx.stroke();
 
-    ctx.fillStyle = '#8ED6FF';
+    DrawDiamond(ctx, width, height * 0.58);
+    ctx.fillStyle = color.toHex();
     ctx.fill();
+
+    ctx.rotate((Math.PI / 180) * 120);
+    DrawDiamond(ctx, width, height * 0.58);
+    color.Scale(0.6);
+    ctx.fillStyle = color.toHex();
+    ctx.fill();
+
+    ctx.rotate((Math.PI / 180) * 120);
+    DrawDiamond(ctx, width, height * 0.58);
+    color.Scale(0.6);
+    ctx.fillStyle = color.toHex();
+    ctx.fill();
+
+    ctx.restore();
+}
+
+function DrawCube3DOutline(ctx, width, height){
+    ctx.save();
+
+    ctx.beginPath();
+    ctx.moveTo(width, height);
+    ctx.lineTo(0, height * 2);
+    ctx.rotate((Math.PI / 180) * 120);
+    ctx.lineTo(width, height);
+    ctx.lineTo(0, height * 2);
+    ctx.rotate((Math.PI / 180) * 120);
+    ctx.lineTo(width, height);
+    ctx.lineTo(0, height * 2);
+    ctx.closePath();
 
     ctx.restore();
 }
@@ -75,7 +101,24 @@ function DrawDiamond(ctx, width, height){
     ctx.beginPath();
     ctx.moveTo(0,0);
     ctx.lineTo(width,height);
-    ctx.lineTo(0,height*2);
+    ctx.lineTo(0,height * 2);
     ctx.lineTo(-width,height);
     ctx.closePath();
+}
+
+class Color {
+    constructor(r, g, b) {
+        this.r = r;
+        this.g = g;
+        this.b = b;
+        this.Scale = function(f) {
+            this.r = Math.max(0, Math.min(255, this.r * f));
+            this.g = Math.max(0, Math.min(255, this.g * f));
+            this.b = Math.max(0, Math.min(255, this.b * f));
+        };
+
+        this.toHex = function(){
+            return "#" + ((1 << 24) + (this.r << 16) + (this.g << 8) + this.b).toString(16).slice(1);
+        }
+    }
 }
