@@ -64,14 +64,16 @@ function generateArtCanvas(canvas){
         var x = Math.random() * canvas.width;
         var y = Math.random() * canvas.height;
         var scale = Math.random() * 100 + 20;
+        var rotation = (Math.PI / 180) * Math.random() * 360;
 
-        DrawCube3D(ctx, x, y, scale, scale, 0.4, colors[Math.floor(Math.random() * colors.length)]);
+        DrawCube3D(ctx, x, y, scale, scale, rotation, 0.4, colors[Math.floor(Math.random() * colors.length)]);
     }
 }
 
-function DrawCube3D(ctx, x, y, width, height, lineThicknessScale, color){
+function DrawCube3D(ctx, x, y, width, height, rotation, lineThicknessScale, color){
     ctx.save();
     ctx.translate(x, y);
+    ctx.rotate(rotation);
 
     ctx.lineWidth = width * lineThicknessScale;
     DrawCube3DOutline(ctx, width, height * 0.58);
