@@ -123,9 +123,9 @@ class Color {
         this.g = g;
         this.b = b;
         this.Scale = function(f) {
-            this.r = Math.max(0, Math.min(255, this.r * f));
-            this.g = Math.max(0, Math.min(255, this.g * f));
-            this.b = Math.max(0, Math.min(255, this.b * f));
+            this.r = Math.floor(Math.max(0, Math.min(255, this.r * f)));
+            this.g = Math.floor(Math.max(0, Math.min(255, this.g * f)));
+            this.b = Math.floor(Math.max(0, Math.min(255, this.b * f)));
         };
 
         this.toHex = function(){
