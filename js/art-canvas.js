@@ -46,11 +46,22 @@ function generateArtCanvas(canvas){
         console.error(canvas + " was passed onto the generator, but can not generate as it is not a canvas element.");
         return;
     }
+
+    var colors = [];
+    if(canvas.dataset.hasOwnProperty("colors")){
+        var dataColors = canvas.dataset["colors"].split(";");
+        for(var i = 0; i < dataColors.length; i++){
+            var color = hexToColor(dataColors[i]);
+            colors.push(color);
+        }
+    }else{
+        colors = [new Color(255, 0, 0)];
+    }
     
     var ctx = canvas.getContext("2d");
 
-    var color = new Color(255, 0, 0);
-    DrawCube3D(ctx, 40, 40, 20, 20, 0.4, color);
+    var color = new Color(100, 100, 100);
+    DrawCube3D(ctx, 40, 40, 20, 20, 0.4, colors[Math.floor(Math.random() * colors.length)]);
 }
 
 function DrawCube3D(ctx, x, y, width, height, lineThicknessScale, color){
@@ -121,4 +132,13 @@ class Color {
             return "#" + ((1 << 24) + (this.r << 16) + (this.g << 8) + this.b).toString(16).slice(1);
         }
     }
+}
+
+function hexToColor(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? new Color(
+        parseInt(result[1], 16),
+        parseInt(result[2], 16),
+        parseInt(result[3], 16)
+    ) : null;
 }
