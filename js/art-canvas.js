@@ -1,7 +1,7 @@
 var cacheArtCanvas, cacheArtCanvasCtx;
 
 function initArtCanvas(){
-    initCacheCanvas();
+    //initCacheCanvas();
 
     var artCanvasList = document.getElementsByClassName("art-canvas");
 
@@ -47,5 +47,18 @@ function generateArtCanvas(canvas){
         return;
     }
     
+    var ctx = canvas.getContext("2d");
 
+    ctx.translate(40, 40);
+    DrawDiamond(ctx, 20, 20);
+}
+
+function DrawDiamond(ctx, width, height){
+    ctx.beginPath();
+    ctx.moveTo(0,0);
+    ctx.lineTo(width,height/2);
+    ctx.lineTo(0,height);
+    ctx.lineTo(-width,height/2);
+    ctx.closePath();
+    ctx.stroke();
 }
