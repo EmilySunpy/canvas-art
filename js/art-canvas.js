@@ -60,6 +60,9 @@ function generateArtCanvas(canvas){
     
     var ctx = canvas.getContext("2d");
 
+    //Clear old image
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     for(var i = 0; i < 100; i++){
         var x = Math.random() * canvas.width;
         var y = Math.random() * canvas.height;
