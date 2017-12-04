@@ -1,4 +1,8 @@
+var cacheArtCanvas, cacheArtCanvasCtx;
+
 function initArtCanvas(){
+    initCacheCanvas();
+
     var artCanvasList = document.getElementsByClassName("art-canvas");
 
     for(var i = 0; i < artCanvasList.length; i++){
@@ -23,6 +27,14 @@ function initArtCanvas(){
     }
 }
 
+function initCacheCanvas(){
+    cacheArtCanvas = documet.createElement("canvas");
+    cacheArtCanvasCtx = cacheArtCanvas.getContext("2d");
+    
+    cacheArtCanvas.width = 400;
+    cacheArtCanvas.height = 400;
+}
+
 function initArtButton(button){
     button.addEventListener("click", function(){
         generateArtCanvas(document.getElementById(button.dataset.bind));
@@ -35,4 +47,5 @@ function generateArtCanvas(canvas){
         return;
     }
     
+
 }
