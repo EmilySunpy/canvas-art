@@ -61,7 +61,10 @@ function initArtInput(input){
         if(!canvasArtSettings.hasOwnProperty(input.dataset.bind))
             canvasArtSettings[input.dataset.bind] = Object.assign({}, defaultCanvasArtSettings);
 
-        canvasArtSettings[input.dataset.bind][input.dataset.bindtype] = value;
+        if(canvasArtSettings[input.dataset.bind].hasOwnProperty(input.dataset.bindtype))
+            canvasArtSettings[input.dataset.bind][input.dataset.bindtype] = value;
+        else
+            console.error(input.dataset.bindtype + " is not a valid setting name!");
     });
 }
 
