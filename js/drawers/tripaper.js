@@ -1,3 +1,6 @@
+//Sign me up!
+Drawers["Triangle Paper"] = "TriPaper";
+
 var TriPaper = {
     Draw: function(canvas, artSettings){
         var dataColors = canvasArtSettings[canvas.id]["colors"];

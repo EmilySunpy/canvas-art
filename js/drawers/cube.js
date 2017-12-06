@@ -1,3 +1,6 @@
+//Sign me up!
+Drawers["Cubes"] = "Cubes";
+
 var Cubes = {
     Draw: function(canvas, artSettings){
         var dataColors = canvasArtSettings[canvas.id]["colors"];
