@@ -118,6 +118,46 @@ class Color {
     }
 }
 
+class Vec2 {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.add = function() {
+            switch (arguments.length) {
+                default:
+                    throw new Error("Invalid params");
+                    return null;
+                case 1:
+                    var x = this.x + arguments[0].x;
+                    var y = this.y + arguments[0].y;
+                    return new Vec2(x, y);
+                case 2:
+                    var x = this.x + arguments[0];
+                    var y = this.y + arguments[1];
+                    return new Vec2(x, y);
+            }
+        };
+        this.sub = function() {
+            switch (arguments.length) {
+                default:
+                    throw new Error("Invalid params");
+                    return null;
+                case 1:
+                    var x = this.x - arguments[0].x;
+                    var y = this.y - arguments[0].y;
+                    return new Vec2(x, y);
+                case 2:
+                    var x = this.x - arguments[0];
+                    var y = this.y - arguments[1];
+                    return new Vec2(x, y);
+            }
+        };
+        this.distance = function(v){
+            return Math.sqrt(Math.abs(this.x - v.x) ** 2 + Math.abs(this.y - v.y) ** 2);
+        };
+    }
+}
+
 function hexToColor(hex) {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? new Color(

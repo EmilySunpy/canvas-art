@@ -13,9 +13,48 @@ var TriPaper = {
             var x = Math.random() * canvas.width;
             var y = Math.random() * canvas.height;
             
-            points.push({x:x,y:y});
+            points.push(new Vec2(x, y));
         }
 
-        
+        //Draw
+        for(var i = 0; i < points.length; i++){
+            var sorted = GetClosestVectorArray(points, i);
+            ctx.beginPath();
+            ctx.moveTo(sorted[0].x,sorted[0].y);
+            ctx.lineTo(sorted[1].x,sorted[1].y);
+            ctx.lineTo(sorted[2].x,sorted[2].y);
+            ctx.closePath();
+            ctx.stroke();
+        }
     }
 };
+
+function GetClosestVectorArray(array, index){ //Optimize?
+    var sorted = {};
+    array.forEach(function(a){
+        sorted[array[index].distance(a)] = a;
+    });
+
+    var keys = Object.keys(sorted);
+    var keyFloats = [];
+    keys.forEach(function(a){
+        keyFloats.push(parseFloat(a));
+    });
+
+    //Sort
+    keyFloats.sort(function(a,b){
+        return a - b;
+    });
+
+    var sortedArray = [
+        sorted[keyFloats[0]],
+        sorted[keyFloats[1]],
+        sorted[keyFloats[2]]
+    ];
+
+    return sortedArray;
+    /*var sorted = array.sort(function(a){
+        return array[index].distance(a);
+    });
+    return sorted;*/
+}
