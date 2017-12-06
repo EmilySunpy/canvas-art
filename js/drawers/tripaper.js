@@ -26,6 +26,14 @@ var TriPaper = {
             ctx.closePath();
             ctx.stroke();
         }
+
+        //Draw debug on point
+        for(var i = 0; i < points.length; i++){
+            ctx.beginPath();
+            ctx.arc(points[i].x,points[i].y,8,0,2*Math.PI);
+            ctx.closePath();
+            ctx.fill();
+        }
     }
 };
 
